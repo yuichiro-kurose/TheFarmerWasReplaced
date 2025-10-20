@@ -86,8 +86,6 @@ def action(route):
 		d = route[len(route) - 1]
 		move(dir[d])
 		route.pop()
-	substance = get_world_size() * (2 ** (num_unlocked(Unlocks.Mazes) - 1))
-	use_item(Items.Weird_Substance, substance)
 	
 def build_maze():
 	clear()
@@ -97,7 +95,11 @@ def build_maze():
 
 build_maze()
 build_wall()
-for _ in range(10):
+for i in range(10):
 	route = shortest_route()
 	action(route)
-harvest()
+	if i < 10 - 1:
+		substance = get_world_size() * (2 ** (num_unlocked(Unlocks.Mazes) - 1))
+		use_item(Items.Weird_Substance, substance)
+	else:
+		harvest()
